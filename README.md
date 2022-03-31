@@ -18,13 +18,13 @@ There is an online editor which includes code generators if you want to use that
 
 You can implement your service in whatever programming language or service framework you want.
 
-We've created a test client which will assure the basic functionality of your service endpoint and report the results to us in the cloud! We're recording the timestamps of the first successful test run for each f5.com email address who submits results. The clock is running!
+We've created a test client which will assure the basic functionality of your service endpoint and report the results to us in the cloud! We're recording the timestamps of the first successful test run for each f5.com email address. The clock is running!
 
 You'll have to go learn [OpenAPI](https://www.openapis.org/) yourself! There is enough detail in the API description document for you to complete your service. 
 
-The API description includes the use of HTTP BASIC authentication to protect your endpoint. ***The username supplied by the client to your service must be your f5.com email address for you to get credit for your success!***. 
+The API description includes the use of HTTP BASIC authentication. ***The username supplied by the client to your service must be your f5.com email address for you to get credit for your success!***. 
 
-The test client will send a report to http://report.edgesite.cloud:5000 so please assure the client has Internet access to that host and port.
+The test client will send a report to http://report.edgesite.cloud:5000. Please assure the client has Internet access to that host and port to get credit for your work.
 
 ## The Test Client
 
