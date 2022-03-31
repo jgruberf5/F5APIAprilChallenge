@@ -1,0 +1,26 @@
+{
+  "name": "f5apiaprilchallenge",
+  "version": "1.0.0",
+  "description": "F5 API April Challenge",
+  "main": "dist/client.js",
+  "scripts": {
+    "prebuild": "npm install; npx @openapitools/openapi-generator-cli generate -i swagger.yaml -o src/generated-sources/openapi -g typescript-node --additional-properties=supportsES6=true",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "j.gruber@f5.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "^16.11.26",
+    "tslint": "^6.1.3",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@types/request": "^2.48.8",
+    "chalk": "^4.1.2",
+    "prompts": "^2.4.2",
+    "request": "^2.88.2"
+  }
+}

@@ -1,0 +1,318 @@
+openapi: "3.0.0"
+info:
+  description: >
+    # Welcome to the F5 API April challenge
+
+    The challenge is to take this OpenAPI 3.0 spec file and turn it into a functioning service API.
+
+
+    OpenAPI is a industry standard specification managed by the Linux Foundation to create REST APIs. There are many API best practices which are enforced by the specification, but still plenty of room to make design decision (and mistakes!). An education in the [OpenAPI specification](https://swagger.io/specification) will only enhance your skills. The OpenAPI community also supports a variety of open source code generators which create client and server stubs in various programming languages.
+
+
+    You may use whatever code generation tools you want for OpenAPI 3.0 to generate the server stubs in any programming language you like. This API specification includes stateful elements which must be persisted between requests, but not necessarily across restarts of your API service. You can choose whatever type of persistence you want.
+
+
+    To complete this challenge, the unaltered node.js client code at [https://github.com/jgruberf5/APIAprilChallenge/client.js](https://github.com/jgruberf5/APIAprilChallenge/client.js) must complete the API tasks and produce a response containing your F5 email address. This OpenAPI specification file declares that the service should be secured by basic HTTP authentication. The username you should require from the client should be your f5 email address. Both the username and password are specified by CLI parameters to the client.
+
+
+    This spec file is sparse, but should be enough to get you going. It is the beginning of your OpenAPI adventure. You should explore the full [OpenAPI specification](https://swagger.io/specification) to get to know the power of declaring your APIs in a standard way. If you need to alter or annotate this spec file for your code generation tools, that is fine, but the client must still connect and work.
+
+
+    The timing of the responses from the client will be recorded to see who wins! The execution environment is up to you. It must be able to run the node.js client. The client communicates to an Internet API endpoint to record your score.  To win you must be the first to complete the challenge and complete a simple code review of your server to make sure you didn't just rewrite the client code!"
+
+
+    ## Have Fun!
+
+  version: "1.0.0"
+  title: "F5 April API Challenge!"
+security:
+  - basicHTTPAuthentication: []
+servers:
+  - url: http://localhost:{port}/{basePath}
+    description: localhost service listener
+    variables:
+      port:
+        default: '8183'
+      basePath:
+        default: 'api/v1'
+paths:
+    /compute/{id}:
+      get:
+        summary: 'Retrieve a past compute function calculation by id'
+        description: 'Return the result for a past calculation identified by the supplied id'
+        tags:
+         - Compute
+        security:
+          - basicHTTPAuthentication: []
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              format: uuid
+        responses:
+          200:
+            description: Cacluation response
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/MathResponse'
+          400:
+            description: Client error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          401:
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          404:
+            description: Not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          500:
+            description: Service error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+      delete:
+        summary: 'Delete a past compute function calculation by id'
+        description: 'Delete the past calculation identified by the supplied id'
+        tags:
+         - Compute
+        security:
+          - basicHTTPAuthentication: []
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              format: uuid
+        responses:
+          202:
+            description: Deleted
+          400:
+            description: Client error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          401:
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          404:
+            description: Not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          500:
+            description: Service error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+    /compute:
+      get:
+        summary: 'Retrieve past compute calculations optionally filtered by label selection'
+        description: 'Get past compute calculations. Returns past calculations or a filtered list based on basic label selection supplied by query parameters.'
+        tags:
+         - Compute
+        security:
+          - basicHTTPAuthentication: []
+        parameters:
+          - in: query
+            name: label
+            description: label to use for filtering
+            required: false
+            schema:
+              type: string
+              maxLength: 64
+          - in: query
+            name: match
+            description: the match form for the label
+            required: false
+            schema:
+              type: string
+              enum:
+                - equals
+                - notequals
+                - in
+                - notin
+          - in: query
+            name: value
+            description: match string
+            required: false
+            schema:
+              type: string
+              maxLength: 64
+        responses:
+          200:
+            description: List of calculation responses
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MathResponse'
+          400:
+            description: Client error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          401:
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          404:
+            description: Not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          500:
+            description: Service error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+      post:
+        summary: Request a new calculation
+        description: Request the service make and store the supplied calculation
+        tags:
+         - Compute
+        security:
+          - basicHTTPAuthentication: []
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MathRequest'
+        responses:
+          200:
+            description: Calculation response
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/MathResponse'
+          400:
+            description: Client error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          401:
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          404:
+            description: Not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          500:
+            description: Service error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    basicHTTPAuthentication:
+      type: http
+      scheme: basic
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Reponse object for an error
+      properties:
+        code:
+          type: integer
+          format: int32
+          minimum: 400
+          maximum: 599
+        message:
+          type: string
+    KeyValue:
+      type: object
+      description: KeyValue type
+      properties:
+        key:
+          type: string
+          maxLength: 128
+          minLength: 2
+          pattern: '^[A-Za-z]'
+        value:
+          type: string
+          maxLength: 128
+          minLength: 2
+    MetadataType:
+      type: object
+      description: metadata for the request operation
+      title: MetadataType
+      properties:
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+    MathRequest:
+      type: object
+      description: Request object for a math function request
+      title: MathRequest
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        operation:
+          type: string
+          enum:
+            - add
+            - subtract
+            - multiply
+            - divide
+        metadata:
+          $ref: '#/components/schemas/MetadataType'
+    MathResponse:
+      type: object
+      description: Response object to a math function request
+      properties:
+        id:
+          type: string
+          format: uuid
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        operation:
+          type: string
+        value:
+          type: number
+          format: float
+        metadata:
+          $ref: '#/components/schemas/MetadataType'

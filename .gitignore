@@ -1,0 +1,8 @@
+dist/
+node_modules/
+
+openapitools.json
+
+src/generated-sources
+
+codegen_ts.sh
