@@ -33,7 +33,7 @@ The test client can be run as either as a docker container or as a node JS appli
 ### The docker way
 
 ```
-$ docker run -i -t --rm docker run -i -t --rm jgruberf5/f5apiaprilchallenge:latest
+$ docker run -i -t --rm jgruberf5/f5apiaprilchallenge:latest
 ```
 
 ## The node way
