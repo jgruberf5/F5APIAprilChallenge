@@ -14,7 +14,7 @@ It's time to jump right in and implement a basic [OpenAPI](https://www.openapis.
 
 There is an online editor which includes code generators if you want to use that to get started:
 
-[Online Swgger Editor]([Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/jgruberf5/F5APIAprilChallenge/main/swagger.yaml))
+[Online Swgger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/jgruberf5/F5APIAprilChallenge/main/swagger.yaml)
 
 You can implement your service in whatever programming language or service framework you want.
 
