@@ -36,7 +36,7 @@ The test client can be run as either as a docker container or as a node JS appli
 $ docker run -i -t --rm jgruberf5/f5apiaprilchallenge:latest
 ```
 
-## The node way
+### The node way
 
 ```
 $ git clone https://github.com/jgruberf5/F5APIAprilChallenge.git
@@ -49,7 +49,7 @@ $ npm run start
 Please be aware that the code generation tools used by `npm run build` will require a Java JRE of at least Java 8 installed. You node version must be
 greater than node 12 as well.
 
-## What the test client will need
+### What the test client will need
 
 You will need to supply it the following information:
 
