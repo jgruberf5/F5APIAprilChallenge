@@ -51,7 +51,7 @@ greater than node 12 as well.
 
 ### What the test client will need
 
-You will need to supply it the following information:
+You will need to supply the client with the following information:
 
 * Your f5.com email address to use as a username to your service
 
