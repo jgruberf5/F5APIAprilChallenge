@@ -46,7 +46,8 @@ $ npm run build
 $ npm run start
 ```
 
-Please be aware that the code generation tools used by `npm run build` will require a Java JRE of at least Java 8.
+Please be aware that the code generation tools used by `npm run build` will require a Java JRE of at least Java 8 installed. You node version must be
+greater than node 12 as well.
 
 ## What the test client will need
 
