@@ -4,7 +4,7 @@ This month we are going to encourage everyone to learn about the [OpenAPI]([http
 
 There are dozens of [code generation tools](https://github.com/OpenAPITools/openapi-generator) which can consume [OpenAPI]([https://www.openapis.org](https://www.openapis.org)) YAML or JSON API descriptions. These tools can create client and server stubs in the programming language or service framework of your choice. The code generation tools typically annotate the API description document with mapping to specific methods or functions within the generated code.
 
-The F5DX publishes its [public APIs](https://docs.cloud.f5.com/docs/api) in [OpenAPI]([[https://www.openapis.org](https://www.openapis.org)) version 3 documents. In F5DX, the services are first described internally using a different specification, but F5DX code generation tools produces [OpenAPI]([[https://www.openapis.org](https://www.openapis.org)) specification documents for each API. We do this because it's a superior user experience for our customers compared to forcing them to consume tools or documentation in ways they are unfamiliar. 
+The F5XC publishes its [public APIs](https://docs.cloud.f5.com/docs/api) in [OpenAPI]([[https://www.openapis.org](https://www.openapis.org)) version 3 documents. In F5XC, the services are first described internally using a different specification, but F5DX code generation tools produces [OpenAPI]([[https://www.openapis.org](https://www.openapis.org)) specification documents for each API. We do this because it's a superior user experience for our customers compared to forcing them to consume tools or documentation in ways they are unfamiliar. 
 
 ## Your Challenge!
 
