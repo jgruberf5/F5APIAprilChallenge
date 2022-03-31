@@ -4,9 +4,8 @@
   "description": "F5 API April Challenge",
   "main": "dist/client.js",
   "scripts": {
-    "prebuild": "npm install; npx @openapitools/openapi-generator-cli generate -i https://raw.githubusercontent.com/jgruberf5/F5APIAprilChallenge/main/swagger.yaml -o src/generated-sources/openapi -g typescript-node --additional-properties=supportsES6=true",
+    "prebuild": "npx @openapitools/openapi-generator-cli generate -i https://raw.githubusercontent.com/jgruberf5/F5APIAprilChallenge/main/swagger.yaml -o src/generated-sources/openapi -g typescript-node --additional-properties=supportsES6=true",
     "build": "tsc",
-    "prestart": "npm run build",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +17,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
+    "@openapitools/openapi-generator-cli":"^2.4.26",
     "@types/request": "^2.48.8",
     "chalk": "^4.1.2",
     "prompts": "^2.4.2",

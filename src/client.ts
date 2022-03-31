@@ -1,18 +1,17 @@
 import { ComputeApi } from "./generated-sources/openapi/api";
-
 import { MathRequest } from "./generated-sources/openapi/model/mathRequest";
 import { KeyValue } from "./generated-sources/openapi/model/keyValue";
 import { MetadataType } from './generated-sources/openapi/model/metadataType';
+import { MathResponse } from './generated-sources/openapi/model/mathResponse';
 
 import chalk from 'chalk';
-import { MathResponse } from './generated-sources/openapi/model/mathResponse';
 
 const prompts = require('prompts');
 const fs = require('fs');
 const crypto = require('crypto');
 const request = require('request');
 
-const reportUrl = 'http://127.0.0.1:5000/create'
+const reportUrl = 'http://report.edgesite.cloud:5000/create'
 
 const config = {
     email: '',
@@ -34,7 +33,7 @@ const testFailed = (reason: string) => {
     process.exit(1);
 }
 
-const connectToAPI = async () => {
+const setupAPI = async () => {
     const userAnswers = [
         {
             type: 'text',
@@ -64,9 +63,31 @@ const connectToAPI = async () => {
     let response = await prompts(userAnswers);
     config.email = response.email
     config.password = response.password
-    const baseUrl = "http://"+response.host+":"+response.port+"/api/v1";
+    config.host = response.host
+    config.port = response.port
+    const baseUrl = "http://"+config.host+":"+config.port+"/api/v1";
     process.stdout.write(chalk.whiteBright('\nAPI endpoint: '+ baseUrl+'\n\n'));
     api = new ComputeApi(baseUrl);
+}
+
+const testConnection = async () => {
+    return new Promise((resolve, reject) => {
+        process.stdout.write(chalk.blue('testing connection'));
+        const requestOptions = {
+            uri: "http://"+config.host+":"+config.port+"/api/v1",
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            json: true
+        }
+        request(requestOptions, (error:Error, response:any, body:any) => {
+            if (error) {
+                testFailed('exception:' + error);
+                reject(null);
+            }
+            process.stdout.write(chalk.green(' - PASSED!\n'));
+            resolve(null)
+        })
+    })
 }
 
 const testBasicAuthImplemented = async () => {
@@ -227,7 +248,11 @@ const sendChallengeResults = async () => {
                 process.stdout.write(chalk.redBright('..existing report at ' + body['completedDate'] + '..'))
             }
         } else {
-            testFailed(response.statusCode + '-' + error)
+            if (error) {
+                testFailed('exception:' + error);
+            } else {
+                testFailed(response.statusCode + '-' + JSON.stringify(body));
+            }
         }
         process.stdout.write(chalk.greenBright('Great Job!\n'));
     })
@@ -235,7 +260,9 @@ const sendChallengeResults = async () => {
 
 const runTests = () => {
     Promise.all([
-        connectToAPI().then(() => {
+        setupAPI().then(() => {
+            return testConnection()
+        }).then( () => {
             return testBasicAuthImplemented()
         }).then( () => {
             return addComputes()
