@@ -68,7 +68,7 @@ Everything else you need is in the [service specification document](https://raw.
 
 ***image: the test client in action***
 
-We'll be watching for the report of your successful! The winners will have to 
+We'll be watching for the report of your success! The winners will have to 
 have a brief code review to make sure you didn't just rewrite the test client!
 
 ## Happy API April!
