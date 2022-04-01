@@ -40,30 +40,59 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/MathResponse'
+                example:
+                  id: 6e8668c6-910d-4fdb-8b8e-757a09c82f16
+                  x: 100
+                  y: 61
+                  operator: add
+                  value: 161.0
+                  metadata:
+                    labels:
+                      - key: additions
+                        value: '61+100'
+                      - key: math
+                        value: basic
+                    annotations:
+                      - key: costmonth
+                        value: April
+                      - key: costyear
+                        value: 2022
           400:
             description: Client error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 400
+                  message: query request included a request body
           401:
             description: Unauthorized
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 401
+                  message: Unauthorized
           404:
             description: Not found
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 404
+                  message: Not found
           500:
             description: Service error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 500
+                  message: compute environment not available
       delete:
         summary: 'Delete a past compute function calculation by id'
         description: 'Delete the past calculation identified by the supplied id'
@@ -87,24 +116,36 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 400
+                  message: delete request included content body
           401:
             description: Unauthorized
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 401
+                  message: Unauthorized
           404:
             description: Not found
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 404
+                  message: Not found
           500:
             description: Service error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 500
+                  message: database error
     /compute:
       get:
         summary: 'Retrieve past compute calculations optionally filtered by label selection'
@@ -148,30 +189,91 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/MathResponse'
+                example:
+                  - id: 6e8668c6-910d-4fdb-8b8e-757a09c82f16
+                    x: 61
+                    y: 100
+                    operation: add
+                    value: 161.0
+                    metadata:
+                    labels:
+                      - key: additions
+                        value: '61+100'
+                      - key: math
+                        value: basic
+                    annotations:
+                      - key: costmonth
+                        value: April
+                      - key: costyear
+                        value: 2022
+                  - id: 57855074-9556-4559-9c87-b68b41615164
+                    x: 2001
+                    y: 206
+                    operation: divide
+                    value: 9.7
+                    metadata:
+                    labels:
+                      - key: divisions
+                        value: '2001/206'
+                      - key: math
+                        value: basic
+                    annotations:
+                      - key: costmonth
+                        value: April
+                      - key: costyear
+                        value: 2022
+                  - id: f4d0b7d5-2c6b-4802-9d56-84b2224eb25c
+                    x: 22
+                    y: 23
+                    operation: subtract
+                    value: -1.0
+                    metadata:
+                    labels:
+                      - key: subtractions
+                        value: '22-23'
+                      - key: math
+                        value: basic
+                    annotations:
+                      - key: costmonth
+                        value: April
+                      - key: costyear
+                        value: 2022
           400:
             description: Client error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 400
+                  message: query request included a request body
           401:
             description: Unauthorized
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 401
+                  message: Unauthorized
           404:
             description: Not found
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 404
+                  message: Not found
           500:
             description: Service error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 500
+                  message: datbase error
       post:
         summary: Request a new calculation
         description: Request the service make and store the supplied calculation
@@ -184,6 +286,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MathRequest'
+              example:
+                x: 61
+                y: 161
+                operation: add
+                metadata:
+                  labels:
+                    - key: additions
+                      value: '61+100'
+                    - key: math
+                      value: basic
+                  annotations:
+                    - key: costmonth
+                      value: April
+                    - key: costyear
+                      value: 2022
         responses:
           200:
             description: Calculation response
@@ -191,30 +308,59 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/MathResponse'
+                example:
+                  id: 6e8668c6-910d-4fdb-8b8e-757a09c82f16
+                  x: 61
+                  y: 100
+                  operation: add
+                  value: 161.0
+                  metadata:
+                    labels:
+                      - key: additions
+                        value: '61+100'
+                      - key: math
+                        value: basic
+                    annotations:
+                      - key: costmonth
+                        value: April
+                      - key: costyear
+                        value: 2022
           400:
             description: Client error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 400
+                  message: invalid compute - divide by zero
           401:
             description: Unauthorized
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 401
+                  message: Unauthorized
           404:
             description: Not found
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 404
+                  message: Not found
           500:
             description: Service error
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  code: 500
+                  message: compute environment is unavailable
 components:
   securitySchemes:
     basicHTTPAuthentication:
