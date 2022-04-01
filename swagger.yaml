@@ -35,7 +35,7 @@ paths:
               format: uuid
         responses:
           200:
-            description: Cacluation response
+            description: Calculation response
             content:
               application/json:
                 schema:
