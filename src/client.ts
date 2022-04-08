@@ -190,10 +190,13 @@ const getComputeById = async () => {
 const filterComputes = async () => {
     process.stdout.write(chalk.blue('filtering Computes by labels'));
     const randomCompute = getRandomMathResponse()
-    const label = getRandomMathResponse().metadata.labels[Math.floor(Math.random()*randomCompute.metadata.labels.length)]
+    const label = randomCompute.metadata.labels[Math.floor(Math.random()*randomCompute.metadata.labels.length)]
     const searchResults = await api.computeGet(label.key, 'equals', label.value);
     if (searchResults.response.statusCode == 200) {
         const mathResponses:MathResponse[] = searchResults.body;
+        if (mathResponses.length > 1) {
+            testFailed('GET request filtered by label returned too many responses: ' + mathResponses.length)
+        }
         let matched:Boolean = false;
         mathResponses.map( (mathResponse) => {
             if (mathResponse.id == randomCompute.id) {
